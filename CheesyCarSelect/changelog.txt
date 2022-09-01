@@ -1,0 +1,43 @@
+Cheesy Car Select
+
+To do:
+things to work out: 
+- how to reduce performance impact of the list
+- how to scale map based on window size not buttons
+- work out what detail to add to the detailed info box
+- add driver number to near the dot on the map
+
+end goal:
+- sort the driver list based on position
+- sort the driver list alphabetically
+- allow clicking on dots on map to switch cars
+- allow hovering on dots to show more info (speed, gear, steering, etc)
+
+
+Changelog:
+v0.1
+- First run, includes a list of the current active cars, along with the ability to focus camera to them.
+
+v0.2
+ - added ACSM spectator command support
+ - added options to add either country code or leaderboard position to main list
+ - added some info to additional detail, kinda using that for debugging
+ - added more information and session checks (online vs offline)
+ 
+v0.3
+- added map with all cars on track
+- added ability to scale map
+- added list colour change if car is off track
+- added list colour change if car is in pit or pitlane
+- added map colour change if car is off track
+- added option to change colour of the different cars on track
+
+v0.4
+- changed map to scale with window size
+- allowed to select background of map or not
+
+v0.5
+- added selected car preview to detailed info window
+- added button to open/close map from main list
+- added current speed of cars on map
+- hovering over list will now show car preview
