@@ -1,0 +1,18 @@
+Cheesy Car Status
+
+street cars:
+- lights active
+- highbeams
+- flashes
+- indicators
+- hazards
+- abs settings + activation     ||complete
+- tc settings + activation      ||complete
+
+race car:
+- kersCharging boolean
+- kersCharge number
+- kersInput number
+- kersCurrentKJ number
+- kersMaxKJ number
+- kersLoad number
