@@ -1,4 +1,8 @@
 local car = ac.getCar(0)
+local getControls = ac.getFolder(ac.FolderID.Cfg)..'/controls.ini'
+local bindForHighbeam =ac.INIConfig.load(getControls):get('__EXT_LOW_BEAM','KEY')[1]
+local toggleHighBeam = true 
+local lastKeyState = false
 
 local carModes = {
     ['Wipers'] = car.wiperModes,
@@ -17,6 +21,8 @@ local Icons = {
     ['LIGHT_HIGHBEAM'] = 'Icons/LIGHT_HIGHBEAM.png',
     ['LIGHT_PARKING'] = 'Icons/LIGHT_PARKINGpng.png'
 }
+
+--ac.INIConfig.(ac.INIFormat.Default, )
 
 local columnWidths = {
     160,
@@ -188,69 +194,43 @@ local function drawWaterTemp()
     end
 
 end
-local timeVar = -1
-local counter = 0
-local spain = 0
+
+local indicatorActive = false
 local function drawLightState()
 
-    --[[
-    if car.turningLeftLights then
-        if counter >= (timeVar + 1) then
-            if doClickOff then
-                ui.image(Icons.INDICATORS, vec2(64,64), rgbm(1,1,1,1), nil, vec2(0,0), vec2(0.5,1), true)
-                doClickOff = false
-            else
-                --ui.image(Icons.INDICATORS, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(0.5,1), true)
-                doClickOff = true
-            end
-            timeVar = counter
-        else
-            ui.image(Icons.INDICATORS, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(0.5,1), true)
-        end
+    if car.turningLeftLights or car.turningRightLights then
+        setInterval(function() indicatorActive = not indicatorActive end, 0.35, 'indicatorActive')
     else
-        ui.image(Icons.INDICATORS, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(0.5,1), true)
+        clearInterval(1)
+        indicatorActive = false
     end
-    ]]
 
-UIToggle = true 
-lastKeyState = false
-function script.drawUI()
-local keyState = ac.isKeyDown(ac.KeyIndex.H)
-    if keyState and lastKeyState ~= keyState then
-        UIToggle = not UIToggle
-        lastKeyState = keyState
-    elseif not keyState then
-        lastKeyState = false
-    end
-end
-
-
-
-
-    if car.turningLeftLights then
+    if car.turningLeftLights and indicatorActive then
         ui.image(Icons.INDICATORS, vec2(64,64), rgbm(1,1,1,1), nil, vec2(0,0), vec2(0.5,1), true)
     else
         ui.image(Icons.INDICATORS, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(0.5,1), true)
     end
-
     ui.sameLine()
-
-    if car.turningRightLights then
+    if car.turningRightLights and indicatorActive then
         ui.image(Icons.INDICATORS, vec2(64,64), rgbm(1,1,1,1), nil, vec2(0.5,0), vec2(1,1), true)
     else
         ui.image(Icons.INDICATORS, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0.5,0), vec2(1,1), true)
     end
 
-
-
-    ui.image(Icons.LIGHT_PARKING, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(1,1), true)
+    if car.headlightsActive then
+        ui.image(Icons.LIGHT_PARKING, vec2(64,64), rgbm(1,1,1,1), nil, vec2(0,0), vec2(1,1), true)
+    else
+        ui.image(Icons.LIGHT_PARKING, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(1,1), true)
+    end
     ui.sameLine()
-    --ui.image(Icons.LIGHT_PARKING, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0.5,0), vec2(1,1), true)
-    ui.image(Icons.LIGHT_HIGHBEAM, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(1,1), true)
-
+    if not car.lowBeams then
+        ui.image(Icons.LIGHT_HIGHBEAM, vec2(64,64), rgbm(1,1,1,1), nil, vec2(0,0), vec2(1,1), true)
+    else
+        ui.image(Icons.LIGHT_HIGHBEAM, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(1,1), true)
+    end
 end
-
-
+local wah = false
+local susHeight = 0.5
 function script.carStatus(dt)
 
     rpmBar()
@@ -282,11 +262,46 @@ function script.carStatus(dt)
     ui.nextColumn()
     ui.columns(1, false, 'none')
     ui.separator()
-        susHeight = ui.slider('##susHeight', susHeight, 0,1,'%.2f')
-        ac.store('susHeight', susHeight)
 
-        counter = counter + dt
+    --susHeight = ui.slider('##susHeight', susHeight, 0,1,'%.2f')
+    --ac.store('susHeight', susHeight)
+
+    --[[
+    local keyState = ac.isKeyDown(bindForHighbeam)
+    if keyState and lastKeyState ~= keyState then
+        toggleHighBeam = not toggleHighBeam
+        lastKeyState = keyState
+    elseif not keyState then
+        lastKeyState = false
+    end
+    ]]
+
+    --[[
+    if toggleHighBeam then
+        ac.setHighBeams(true)
+    else
+        ac.setHighBeams(false)
+    end
+    ]]
+
+    --[[
+    if car.lowBeams == false and toggleHighBeam == true then
+        ac.setHighBeams(true)
+    else
+        ac.setHighBeams(false)
+    end
+
+    ac.debug('1lowbeam',car.lowBeams)
+    ac.debug('1toggleHighBeam',toggleHighBeam)
+    ac.debug('wah',wah)
+    ]]
+ac.debug('1lowbeam',car.lowBeams)
 end
+
+
+
+
+
 --    ui.colorPicker('##licenselight',plateColour)
 --    plateMult = ui.slider('##plateMult', plateMult, 0, 1000,'%.3f',1.5)
 --    valueSave = math.round(plateColour.r,2)..','..math.round(plateColour.g,2)..','..math.round(plateColour.b,2)..','..math.round(plateMult,2)
