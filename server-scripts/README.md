@@ -12,5 +12,5 @@ Something like this is fine:
 
 ```ini
 [SCRIPT_...]
-SCRIPT = "https://pastebin.com/00000000000"
+SCRIPT = "https://pastebin.com/raw/00000000000"
 ```
