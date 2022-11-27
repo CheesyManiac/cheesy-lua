@@ -40,7 +40,7 @@ ac.debug('listHovered', listHovered)
 
 
   ui.childWindow('##drivers', vec2(ui.availableSpaceX(), (ui.availableSpaceY()-50)), true, function ()
-    for i = 1, (sim.carsCount ) do
+    for i = 1, (sim.carsCount) do
       ui.pushFont(ui.Font.Monospace)
       local car = ac.getCar(i - 1)
         if ui.itemHovered() then

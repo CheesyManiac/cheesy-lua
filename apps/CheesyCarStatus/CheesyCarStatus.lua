@@ -159,8 +159,7 @@ local function drawWaterTemp()
 
     ui.drawCircleFilled(dialCenter, dialRadius, rgbm(0, 0, 0, 0.3), 50)
 
-        -- draws the larger indents on temp 
-
+    -- draws the larger indents on temp 
     for i = 0, lineCountLong do 
         local s = math.sin(math.lerp(dialStart, dialEnd, i / lineCountLong) * math.pi)
         local c = -math.cos(math.lerp(dialStart, dialEnd, i / lineCountLong) * math.pi)
@@ -229,11 +228,12 @@ local function drawLightState()
         ui.image(Icons.LIGHT_HIGHBEAM, vec2(64,64), rgbm(0,0,0,0.3), nil, vec2(0,0), vec2(1,1), true)
     end
 end
-local wah = false
+
 local susHeight = 0.5
 function script.carStatus(dt)
-
+    ac.setWindowTitle('carStatus', 'Car Status'..' | '..ac.getPatchVersionCode()..' | '..ac.getPatchVersion())
     rpmBar()
+    ui.text(math.floor(car.rpm))
 
     ui.separator()
     -------------------------------------------------------
@@ -296,6 +296,7 @@ function script.carStatus(dt)
     ac.debug('wah',wah)
     ]]
 ac.debug('1lowbeam',car.lowBeams)
+ac.debug('turningLightsActivePhase',car.turningLightsActivePhase)
 end
 
 
