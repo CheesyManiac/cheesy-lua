@@ -40,4 +40,3 @@ function script.drawUI()
         ui.drawImage(image_1.src, vec2(image_1.paddingX, image_1.paddingY), vec2(image_1.sizeX+image_1.paddingX, image_1.sizeY+image_1.paddingY), true)
     end
 end
-end
