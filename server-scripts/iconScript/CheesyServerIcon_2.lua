@@ -151,12 +151,12 @@ function script.update(dt)
         end
         creditPos = (-0.01*b^(-a*creditTimer+math.log(500)/math.log(b)) + 2)*20
     end
-    ac.debug('creditPos', creditPos)
-    ac.debug('timer', creditTimer)
-    ac.debug("image_0_source", image_0_source)
-    ac.debug("image_1_source", image_1_source)
+    --ac.debug('creditPos', creditPos)
+    ac.debug('creditTimer', creditTimer)
+    --ac.debug("image_0_source", image_0_source)
+    --ac.debug("image_1_source", image_1_source)
     ac.debug('imageMetaLoaded', imageMetaLoaded)
-    ac.debug("imageready",ui.isImageReady(image_0_source))
+    --ac.debug("imageready",ui.isImageReady(image_0_source))
     loadImageMeta() 
 end
 
