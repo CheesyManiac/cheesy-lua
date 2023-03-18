@@ -1,8 +1,16 @@
---CheesyManiac#0001
---Car ignition and starter script
---CSP ExtraA for ignition, CSP ExtraB to engage the starter motor
+--[[
+CheesyManiac#0001
+Car ignition and starter script
+CSP ExtraA for ignition, CSP ExtraB to engage the starter motor
 
---Do not use on encrypted mods (that goes for data encrypted models!)
+You will need to add this to the ext_config.ini:
+    [EXTRA_SWITCHES]
+    SWITCH_A = "Engine Ignition"
+    SWITCH_B = "Engine Starter"
+    SWITCH_B_FLAGS = HOLD_MODE
+
+DO NOT use on encrypted mods (that goes for data encrypted models!)
+]]
 
 local carState = {
   ignition = false,
