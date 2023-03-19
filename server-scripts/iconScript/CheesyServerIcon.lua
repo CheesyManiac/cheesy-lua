@@ -32,11 +32,9 @@ end
 --this draws the splash screen then after draws the icon
 function script.drawUI()
     if timer >= 0 and not ac.getSim().isInMainMenu then
-        ac.log("Rules Displayed")
         ui.drawImage(image_0.src, vec2(image_0.paddingX, screensize.y-image_0.sizeY-image_0.paddingY), vec2(image_0.sizeX+image_0.paddingX, screensize.y-image_0.paddingY), true)
     end
     if timer <= 0 then
-        ac.log("Icon Active")
         ui.drawImage(image_1.src, vec2(image_1.paddingX, image_1.paddingY), vec2(image_1.sizeX+image_1.paddingX, image_1.sizeY+image_1.paddingY), true)
     end
 end
