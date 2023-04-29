@@ -1,6 +1,8 @@
 # cheesy-lua
 A small repository of all my experiments in Lua.
 
+Includes a [wiki page](https://github.com/CheesyManiac/cheesy-lua/wiki/) containing information I find along the way, not necessarily related to Lua.
+
 All of these are free to use, adding a small credit somewhere would be nice.
 
 # License
